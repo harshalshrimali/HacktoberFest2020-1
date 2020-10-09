@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+	int data;
+	struct node *next;
+} *first = NULL;
+void create (int arr[] , int size)
+{
+	int i;
+	struct node *t,*last;
+	first = (struct node *)malloc(sizeof(struct node));
+	first->data = arr[0];
+	first->next = NULL;
+	last = first;
+	for(i=1;i<size;i++)
+	{
+		t = (struct node *)malloc(sizeof(struct node));
+		t->data = arr[i];
+		t->next = NULL;	
+		last->next = t;
+		last = t;
+	}
+	
+	printf("\nLINKED LIST CREATED \n");
+}
+void display(struct node *first)
+{
+	struct node *p;
+	p = first;
+	printf("\n LINKED LIST:\n");
+	while(p!= NULL)
+	{
+		printf("%d -> ",p->data);
+		p = p->next;
+	}
+	printf("NULL\n");
+}
+int countElements(struct node *first)
+{
+	struct node *p;
+	int count = 0;
+	p = first;
+	while(p!= NULL)
+	{
+		p = p->next;
+		count ++;
+	}
+	return count;
+}
+void splitLinkedList()
+{
+	struct node *firstList, *secondList,*ptr;
+	int count,i;
+	count = countElements(first);
+	printf("No. of elements in 1st linked list: %d ",count);
+	firstList = first;
+	ptr = first;
+	
+	 if(count % 2==0)
+	{
+		for(i = 1;i<=(count/2);i++)
+		{
+			ptr = ptr->next;
+		}
+		printf("\n 1st half\n");
+		while(firstList !=ptr)//printing 1st half of list
+		{
+			printf("%d -> ",firstList->data);
+			firstList = firstList->next;
+		}
+		printf("NULL");
+		secondList = ptr;
+		printf("\n 2nd half\n");
+		while(secondList!= NULL)
+		{
+			printf("%d -> ",secondList->data);
+			secondList = secondList->next;
+		}
+		printf("NULL");
+	}
+	else
+	{
+		for(i = 0;i<=(count/2);i++)
+		{
+			ptr = ptr->next;
+		}
+			printf("\n 1st half\n");
+		while(firstList!=ptr)//printing 1st half of list
+		{
+			printf("%d -> ",firstList->data);
+			firstList = firstList->next;
+		}
+		printf("NULL");
+		secondList = ptr;
+		printf("\n 2nd half\n");
+		while(secondList!= NULL)
+		{
+			printf("%d -> ",secondList->data);
+			secondList = secondList->next;
+		}
+		printf("NULL");
+
+	}
+	printf("\n Linked List Splitted");
+	
+}
+int main()0
+{
+	int a[1000],size,i;
+	printf("Enter size of linked list: ");
+	scanf("%d",&size);
+	printf("enter elements of linked list: ");
+	for(i=0;i<size;i++)
+	{
+		scanf("%d",&a[i]);
+	}
+	create(a,size);
+	display(first);
+	splitLinkedList();
+}
